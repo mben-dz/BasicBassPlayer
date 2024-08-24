@@ -1,32 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.150,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.273,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.105,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.712,=D:\2025\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.150,=D:\2025\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.763,=D:\2026\BassPlayer\API\API.bass.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.963,=D:\2026\BassPlayer\Res\Cristo.wav</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.026,=D:\2026\BassPlayer\Res\Intro.wav</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.573,=D:\2025\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.644,D:\2025\Projects\Unit1.pas=D:\2026\BassPlayer\Main.View.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.206,D:\2026\BassPlayer\API\API.ExtractDLL.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.560,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.553,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.862,=D:\2025\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.521,=D:\2025\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.560,=D:\2025\Projects\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 03:38:52.573,=D:\2025\Projects\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 03:40:11.644,D:\2026\BassPlayer\Main.View.pas=D:\2025\Projects\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 03:40:11.644,D:\2026\BassPlayer\Main.View.dfm=D:\2025\Projects\Unit1.dfm</Transaction>
-    <Transaction>2024-08-24 03:40:29.948,D:\2026\BassPlayer\BasicBassPlayer.dproj=D:\2025\Projects\Project1.dproj</Transaction>
-    <Transaction>2024-08-24 04:08:29.763,=D:\2026\BassPlayer\API\API.bass.pas</Transaction>
-    <Transaction>2024-08-24 04:08:29.874,=D:\2026\BassPlayer\API\API.SoundLib.pas</Transaction>
-    <Transaction>2024-08-24 04:10:37.580,=D:\2026\BassPlayer\Res\bass.dll</Transaction>
-    <Transaction>2024-08-24 04:11:10.155,=D:\2026\BassPlayer\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 04:11:59.926,D:\2026\BassPlayer\API\API.ResManager.pas=D:\2026\BassPlayer\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 05:07:18.350,D:\2026\BassPlayer\API\API.BassResMgr.pas=D:\2026\BassPlayer\API\API.ResManager.pas</Transaction>
-    <Transaction>2024-08-24 06:29:49.906,=D:\2026\BassPlayer\Res\Clicked.wav</Transaction>
-    <Transaction>2024-08-24 06:29:49.963,=D:\2026\BassPlayer\Res\Cristo.wav</Transaction>
-    <Transaction>2024-08-24 06:29:50.026,=D:\2026\BassPlayer\Res\Intro.wav</Transaction>
-    <Transaction>2024-08-24 06:33:24.075,=D:\2026\BassPlayer\API\API.TaskWait.pas</Transaction>
-    <Transaction>2024-08-24 07:16:57.472,=D:\2026\BassPlayer\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 07:17:15.731,D:\2026\BassPlayer\API\API.ExtractDLL.pas=D:\2026\BassPlayer\Unit1.pas</Transaction>
-    <Transaction>2024-08-24 07:54:20.206,D:\2026\BassPlayer\API\API.ExtractDLL.pas=</Transaction>
-    <Transaction>2024-08-24 07:54:45.693,D:\2026\BassPlayer\API\API.TaskWait.pas=</Transaction>
-    <Transaction>2024-08-24 07:55:09.382,D:\2026\BassPlayer\Res\bass.dll=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.693,D:\2026\BassPlayer\API\API.TaskWait.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.948,D:\2025\Projects\Project1.dproj=D:\2026\BassPlayer\BasicBassPlayer.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.906,=D:\2026\BassPlayer\Res\Clicked.wav</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.644,D:\2025\Projects\Unit1.dfm=D:\2026\BassPlayer\Main.View.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.580,=D:\2026\BassPlayer\Res\bass.dll</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.382,D:\2026\BassPlayer\Res\bass.dll=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.874,=D:\2026\BassPlayer\API\API.SoundLib.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.472,=D:\2026\BassPlayer\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.731,D:\2026\BassPlayer\Unit1.pas=D:\2026\BassPlayer\API\API.ExtractDLL.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.075,=D:\2026\BassPlayer\API\API.TaskWait.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.350,D:\2026\BassPlayer\API\API.ResManager.pas=D:\2026\BassPlayer\API\API.BassResMgr.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.155,=D:\2026\BassPlayer\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.926,D:\2026\BassPlayer\Unit1.pas=D:\2026\BassPlayer\API\API.ResManager.pas</Transaction>
+    <Transaction>2024-08-24 09:21:55.107,=D:\2026\BasicBassPlayer\API\Timer\API.Logger.pas</Transaction>
+    <Transaction>2024-08-24 09:21:55.195,=D:\2026\BasicBassPlayer\API\Timer\API.ThreadTimer.pas</Transaction>
+    <Transaction>2024-08-24 09:26:31.484,=D:\2026\BasicBassPlayer\API\Timer\API.Controls.Hack.pas</Transaction>
   </Transactions>
 </BorlandProject>

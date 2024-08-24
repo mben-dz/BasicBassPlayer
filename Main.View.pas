@@ -14,13 +14,18 @@ uses
 , System.Classes
 {$ENDREGION}
 {$REGION '  Import: Vcl''s .. '}
-,  Vcl.Graphics
-,  Vcl.Controls
-,  Vcl.Forms
-,  Vcl.Dialogs
+, Vcl.Graphics
+, Vcl.Controls
+, Vcl.Forms
+, Vcl.Dialogs
+, Vcl.StdCtrls
+, Vcl.Buttons
+, Vcl.ExtCtrls
+, Vcl.Imaging.jpeg
 {$ENDREGION}
 
-, API.SoundLib, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls
+, API.SoundLib
+, API.ThreadTimer
 ;
 
 type
@@ -28,10 +33,11 @@ type
 
   TMainView = class(TForm)
     Btn_Click: TButton;
-    GrpBox_BGSound: TGroupBox;
     Btn_Switch_PlayStop: TSpeedButton;
     Btn_Switch_PlayPause: TSpeedButton;
     Pnl_Status: TPanel;
+    Img_Movie: TImage;
+    Pnl_Tool: TPanel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -39,12 +45,17 @@ type
     procedure Btn_Switch_PlayPauseClick(Sender: TObject);
     procedure Btn_Switch_PlayStopClick(Sender: TObject);
   private
+    fTimer: I_TimerThread;
     fSoundIntro,
     fSoundBG,
     fSoundClick: TResSoundPlayer;
     procedure PlaySound(const aSound: TSoundWave); inline;
     procedure PauseSound(const aSound: TSoundWave); inline;
     procedure StopSound(const aSound: TSoundWave); inline;
+
+    procedure ExpandForm;
+    { Timer Getter }
+    function Get_Timer: I_TimerThread;
     { Get Sounds Getter }
   {$REGION '  [Sounds Getters] .. '}
     function GetIntroSound: TResSoundPlayer;
@@ -53,6 +64,8 @@ type
   {$ENDREGION}
   public
     { Public declarations }
+    property Timer: I_TimerThread read Get_Timer;
+
     property SoundIntro:   TResSoundPlayer read GetIntroSound;
     property SoundBG:      TResSoundPlayer read GetBGSound;
     property SoundClicked: TResSoundPlayer read GetClickedSound;
@@ -109,6 +122,20 @@ begin
   Result := fSoundIntro;
 end;
 
+function TMainView.Get_Timer: I_TimerThread;
+begin
+  if not Assigned(fTimer) then begin
+    fTimer := Create_TimerThread;
+
+    fTimer
+      .Init
+      .Interval(50) // Set interval to 3 seconds
+      .OnTask(ExpandForm);
+  end;
+
+  Result := fTimer;
+end;
+
 function TMainView.GetBGSound: TResSoundPlayer;
 begin
   if not Assigned(fSoundBG) then
@@ -130,6 +157,8 @@ procedure TMainView.FormShow(Sender: TObject);
 begin
   PlaySound(sIntro);
   PlaySound(sBG);
+
+  Timer.Enabled(True);
 end;
 
 procedure TMainView.Btn_ClickClick(Sender: TObject);
@@ -177,11 +206,22 @@ begin
   end;
 end;
 
+procedure TMainView.ExpandForm;
+begin
+  if Height >= 750 then
+    Timer.Enabled(False);
+
+  Height := Height +5;
+  Application.ProcessMessages;
+end;
+
 procedure TMainView.FormCreate(Sender: TObject);
 begin
   fSoundIntro := nil;
   fSoundBG    := nil;
   fSoundClick := nil;
+
+  Top := Screen.WorkAreaTop; Left := (Screen.WorkAreaWidth div 2)-(Width div 2);
 end;
 
 procedure TMainView.FormDestroy(Sender: TObject);

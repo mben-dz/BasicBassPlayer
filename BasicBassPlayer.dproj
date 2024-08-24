@@ -132,6 +132,9 @@
         <DCCReference Include="Main.View.pas">
             <Form>MainView</Form>
         </DCCReference>
+        <DCCReference Include="API\Timer\API.Logger.pas"/>
+        <DCCReference Include="API\Timer\API.ThreadTimer.pas"/>
+        <DCCReference Include="API\Timer\API.Controls.Hack.pas"/>
         <RcItem Include="Res\Clicked.wav">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>WAVE</ResourceType>
