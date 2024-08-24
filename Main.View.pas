@@ -212,7 +212,7 @@ begin
     Timer.Enabled(False);
 
   Height := Height +5;
-  Application.ProcessMessages;
+//  Application.ProcessMessages;
 end;
 
 procedure TMainView.FormCreate(Sender: TObject);
