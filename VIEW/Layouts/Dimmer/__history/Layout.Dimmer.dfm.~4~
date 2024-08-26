@@ -1,0 +1,27 @@
+object LytDimmer: TLytDimmer
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'LytDimmer'
+  ClientHeight = 157
+  ClientWidth = 157
+  Color = clBlack
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnClose = FormClose
+  OnShow = FormShow
+  DesignSize = (
+    157
+    157)
+  TextHeight = 15
+  object Activity_Wait: TActivityIndicator
+    Left = 50
+    Top = 50
+    Anchors = []
+    IndicatorColor = aicWhite
+    IndicatorSize = aisXLarge
+  end
+end

@@ -23,7 +23,7 @@ uses
 ;
 
 const
-  RT_RCWAVE = 'WAVE';
+  RT_RCWAVE = 'SOUND';
 
 { TResMgr }
 

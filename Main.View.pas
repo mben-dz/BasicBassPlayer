@@ -22,11 +22,12 @@ uses
 , Vcl.Buttons
 , Vcl.ExtCtrls
 , Vcl.Imaging.jpeg
+, Vcl.Imaging.pngimage, API.Images
 {$ENDREGION}
 
 , API.SoundLib
-, API.ThreadTimer
-;
+, Lyt.Ripple
+, Layout.Dimmer;
 
 type
   TSoundWave = (sIntro, sBG, sClicked);
@@ -36,49 +37,54 @@ type
     Btn_Switch_PlayStop: TSpeedButton;
     Btn_Switch_PlayPause: TSpeedButton;
     Pnl_Status: TPanel;
-    Img_Movie: TImage;
     Pnl_Tool: TPanel;
-    procedure FormCreate(Sender: TObject);
+    ImgCristo: TImage;
+    TimerExpand: TTimer;
+    Pnl_Ripple: TPanel;
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Btn_ClickClick(Sender: TObject);
     procedure Btn_Switch_PlayPauseClick(Sender: TObject);
     procedure Btn_Switch_PlayStopClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure TimerExpandTimer(Sender: TObject);
   private
-    fTimer: I_TimerThread;
     fSoundIntro,
     fSoundBG,
     fSoundClick: TResSoundPlayer;
+    fLytRipple: TLytRipple;
+    fDimmer: TLytDimmer;
     procedure PlaySound(const aSound: TSoundWave); inline;
     procedure PauseSound(const aSound: TSoundWave); inline;
     procedure StopSound(const aSound: TSoundWave); inline;
-
-    procedure ExpandForm;
-    { Timer Getter }
-    function Get_Timer: I_TimerThread;
     { Get Sounds Getter }
   {$REGION '  [Sounds Getters] .. '}
     function GetIntroSound: TResSoundPlayer;
     function GetBGSound: TResSoundPlayer;
     function GetClickedSound: TResSoundPlayer;
   {$ENDREGION}
+//    function GetLytRipple: TLytRipple;
+    function GetDimmer: TLytDimmer;
   public
     { Public declarations }
-    property Timer: I_TimerThread read Get_Timer;
 
     property SoundIntro:   TResSoundPlayer read GetIntroSound;
     property SoundBG:      TResSoundPlayer read GetBGSound;
     property SoundClicked: TResSoundPlayer read GetClickedSound;
+
+//    property LytRipple: TLytRipple read GetLytRipple;
+    property Dimmer: TLytDimmer read GetDimmer;
   end;
 
 //var
 //  MainView: TMainView;
 
 implementation
-
 uses
   API.bass
+  , System.Threading
 ;
+
 
 {$R *.dfm}
 
@@ -117,29 +123,15 @@ end;
 function TMainView.GetIntroSound: TResSoundPlayer;
 begin
   if not Assigned(fSoundIntro) then
-    fSoundIntro := TResSoundPlayer.Create('WAVE_INTRO');
+    fSoundIntro := TResSoundPlayer.Create('SOUND_INTRO');
 
   Result := fSoundIntro;
-end;
-
-function TMainView.Get_Timer: I_TimerThread;
-begin
-  if not Assigned(fTimer) then begin
-    fTimer := Create_TimerThread;
-
-    fTimer
-      .Init
-      .Interval(50) // Set interval to 3 seconds
-      .OnTask(ExpandForm);
-  end;
-
-  Result := fTimer;
 end;
 
 function TMainView.GetBGSound: TResSoundPlayer;
 begin
   if not Assigned(fSoundBG) then
-    fSoundBG := TResSoundPlayer.Create('WAVE_BG');
+    fSoundBG := TResSoundPlayer.Create('SOUND_BG');
 
   Result := fSoundBG;
 end;
@@ -147,18 +139,74 @@ end;
 function TMainView.GetClickedSound: TResSoundPlayer;
 begin
   if not Assigned(fSoundClick) then
-    fSoundClick := TResSoundPlayer.Create('WAVE_CLICKED');
+    fSoundClick := TResSoundPlayer.Create('SOUND_CLICKED');
 
   Result := fSoundClick;
 end;
+function TMainView.GetDimmer: TLytDimmer;
+begin
+  if not Assigned(fDimmer) then  begin
+    fDimmer := TLytDimmer.Create(Self, Pnl_Ripple);
+  end;
+
+  Result := fDimmer;
+end;
+
 {$ENDREGION}
 
-procedure TMainView.FormShow(Sender: TObject);
-begin
-  PlaySound(sIntro);
-  PlaySound(sBG);
+//function TMainView.GetLytRipple: TLytRipple;
+//var
+//  LTask: ITask;
+//begin
+//  if not Assigned(fLytRipple) then  begin
+//    fLytRipple := TLytRipple.Create(Self);
+//    try
 
-  Timer.Enabled(True);
+//
+//    finally
+//
+//    end;
+//  end;
+//
+//  Result := fLytRipple;
+//end;
+
+procedure TMainView.TimerExpandTimer(Sender: TObject);
+var
+  LTask: ITask;
+begin
+  if Height >= 640 then begin
+    TimerExpand.Enabled := False;
+    fLytRipple := TLytRipple.Create(Self);
+    try
+      fLytRipple.Parent := Pnl_Ripple;
+      fLytRipple.Top := Pnl_Tool.Height;
+      fLytRipple.Left := 0;
+      fLytRipple.LoadRipple;
+      LTask := TTask.run(procedure begin
+         repeat
+           Application.ProcessMessages;
+           Sleep(10);
+         until fLytRipple.Ripple.IsResBitmapLoaded;
+
+        FreeAndNil(ImgCristo);
+
+      end);
+    finally
+      Pnl_Status.Caption := 'Loading Ripple ..';
+      try
+        while not (LTask.Status in [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
+          Application.ProcessMessages;
+      finally
+        Pnl_Status.Caption := '';
+      end;
+
+      fLytRipple.Show;
+    end;
+  end;
+
+  Height := Height +15;
+  Application.ProcessMessages;
 end;
 
 procedure TMainView.Btn_ClickClick(Sender: TObject);
@@ -166,22 +214,23 @@ begin
   PlaySound(sClicked);
 end;
 
+{$REGION '  Buttons [Play|Pause|Stop] .. '}
 procedure TMainView.Btn_Switch_PlayPauseClick(Sender: TObject);
 begin
   case Btn_Switch_PlayPause.Tag of
     0: begin
        PauseSound(sBG);
        Btn_Switch_PlayPause.Tag := 1;
-       Btn_Switch_PlayPause.Caption := 'SwitchTo <<Play>>';
+       Btn_Switch_PlayPause.Caption := 'Play';
        Btn_Switch_PlayStop.Tag := 1;
-       Btn_Switch_PlayStop.Caption := 'SwitchTo <<Play>>';
+       Btn_Switch_PlayStop.Caption := 'Play';
     end;
     1: begin
        PlaySound(sBG);
        Btn_Switch_PlayPause.Tag := 0;
-       Btn_Switch_PlayPause.Caption := 'SwitchTo <<Pause>>';
+       Btn_Switch_PlayPause.Caption := 'Pause';
        Btn_Switch_PlayStop.Tag := 0;
-       Btn_Switch_PlayStop.Caption := 'SwitchTo <<Stop>>';
+       Btn_Switch_PlayStop.Caption := 'Stop';
     end;
   end;
 end;
@@ -192,31 +241,24 @@ begin
     0: begin
        StopSound(sBG);
        Btn_Switch_PlayStop.Tag := 1;
-       Btn_Switch_PlayStop.Caption := 'SwitchTo <<Play>>';
+       Btn_Switch_PlayStop.Caption := 'Play';
        Btn_Switch_PlayPause.Tag := 1;
-       Btn_Switch_PlayPause.Caption := 'SwitchTo <<Play>>';
+       Btn_Switch_PlayPause.Caption := 'Play';
     end;
     1: begin
        PlaySound(sBG);
        Btn_Switch_PlayStop.Tag := 0;
-       Btn_Switch_PlayStop.Caption := 'SwitchTo <<Stop>>';
+       Btn_Switch_PlayStop.Caption := 'Stop';
        Btn_Switch_PlayPause.Tag := 0;
-       Btn_Switch_PlayPause.Caption := 'SwitchTo <<Pause>>';
+       Btn_Switch_PlayPause.Caption := 'Pause';
     end;
   end;
 end;
-
-procedure TMainView.ExpandForm;
-begin
-  if Height >= 750 then
-    Timer.Enabled(False);
-
-  Height := Height +5;
-//  Application.ProcessMessages;
-end;
+{$ENDREGION}
 
 procedure TMainView.FormCreate(Sender: TObject);
 begin
+//  fLytRipple  := nil;
   fSoundIntro := nil;
   fSoundBG    := nil;
   fSoundClick := nil;
@@ -229,6 +271,17 @@ begin
   fSoundIntro.Free;
   fSoundBG.Free;
   fSoundClick.Free;
+
+//  fLytRipple.Free;
+end;
+
+procedure TMainView.FormShow(Sender: TObject);
+begin
+  PlaySound(sIntro);
+  PlaySound(sBG);
+
+  TimerExpand.Enabled := True;
+
 end;
 
 end.

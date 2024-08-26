@@ -1,3 +1,4 @@
-WAVE_CLICKED WAVE "Res\\Clicked.wav"
-WAVE_BG WAVE "Res\\Cristo.wav"
-WAVE_INTRO WAVE "Res\\Intro.wav"
+SOUND_CLICKED SOUND "Res\\Clicked.wav"
+SOUND_INTRO SOUND "Res\\Intro.wav"
+SOUND_BG SOUND "Res\\CRISTO.mp3"
+CRISTO BITMAP "Res\\Cristo.bmp"

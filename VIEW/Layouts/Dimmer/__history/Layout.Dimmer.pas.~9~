@@ -1,0 +1,59 @@
+unit Layout.Dimmer;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.WinXCtrls, Vcl.StdCtrls;
+
+type
+  TLytDimmer = class(TForm)
+    Lbl_Wait: TLabel;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    [weak]
+    fParent: TWinControl;
+    fWithActivity: Boolean;
+    { Private declarations }
+  public
+    constructor Create(aOwner: TComponent; aParent: TWinControl; aWithActivity: Boolean = True); reintroduce;
+    { Public declarations }
+    procedure Shows;
+
+    property Father: TWinControl read fParent write fParent;
+  end;
+
+//var
+//  LytDimmer: TLytDimmer;
+
+implementation
+
+{$R *.dfm}
+
+constructor TLytDimmer.Create(aOwner: TComponent; aParent: TWinControl; aWithActivity: Boolean);
+begin inherited Create(aOwner);
+  fParent := aParent;
+  fWithActivity := aWithActivity;
+end;
+
+procedure TLytDimmer.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Activity_Wait.Animate := False;
+  Action := TCloseAction.caFree;
+end;
+
+procedure TLytDimmer.FormShow(Sender: TObject);
+begin
+  Activity_Wait.Animate := fWithActivity;
+  Lbl_Wait.Visible := not fWithActivity;
+end;
+
+procedure TLytDimmer.Shows;
+begin
+  Parent := fParent;
+  SetBounds(0, 0, fParent.Width, fParent.Height);
+  Show;
+end;
+
+end.

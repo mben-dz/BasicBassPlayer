@@ -129,26 +129,36 @@
         <DCCReference Include="API\API.BassResMgr.pas"/>
         <DCCReference Include="API\API.bass.pas"/>
         <DCCReference Include="API\API.SoundLib.pas"/>
+        <DCCReference Include="API\Ripple\API.RippleEffects.pas"/>
+        <DCCReference Include="API\Ripple\API.RippleHeader.pas"/>
         <DCCReference Include="Main.View.pas">
             <Form>MainView</Form>
         </DCCReference>
-        <DCCReference Include="API\Timer\API.Logger.pas"/>
-        <DCCReference Include="API\Timer\API.ThreadTimer.pas"/>
-        <DCCReference Include="API\Timer\API.Controls.Hack.pas"/>
+        <DCCReference Include="VIEW\Layouts\Main\Lyt.Ripple.pas">
+            <Form>LytRipple</Form>
+        </DCCReference>
+        <DCCReference Include="VIEW\Layouts\Dimmer\Layout.Dimmer.pas">
+            <Form>LytDimmer</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="Res\Clicked.wav">
             <ContainerId>ResourceItem</ContainerId>
-            <ResourceType>WAVE</ResourceType>
-            <ResourceId>WAVE_CLICKED</ResourceId>
-        </RcItem>
-        <RcItem Include="Res\Cristo.wav">
-            <ContainerId>ResourceItem</ContainerId>
-            <ResourceType>WAVE</ResourceType>
-            <ResourceId>WAVE_BG</ResourceId>
+            <ResourceType>SOUND</ResourceType>
+            <ResourceId>SOUND_CLICKED</ResourceId>
         </RcItem>
         <RcItem Include="Res\Intro.wav">
             <ContainerId>ResourceItem</ContainerId>
-            <ResourceType>WAVE</ResourceType>
-            <ResourceId>WAVE_INTRO</ResourceId>
+            <ResourceType>SOUND</ResourceType>
+            <ResourceId>SOUND_INTRO</ResourceId>
+        </RcItem>
+        <RcItem Include="Res\CRISTO.mp3">
+            <ContainerId>ResourceItem</ContainerId>
+            <ResourceType>SOUND</ResourceType>
+            <ResourceId>SOUND_BG</ResourceId>
+        </RcItem>
+        <RcItem Include="Res\Cristo.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>CRISTO</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -182,13 +192,19 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="Res\CRISTO.mp3" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Res\Clicked.wav" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Res\Cristo.wav" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Res\Cristo.bmp" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

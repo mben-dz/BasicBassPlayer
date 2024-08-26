@@ -7,10 +7,11 @@ uses
   API.BassResMgr in 'API\API.BassResMgr.pas',
   API.bass in 'API\API.bass.pas',
   API.SoundLib in 'API\API.SoundLib.pas',
+  API.RippleEffects in 'API\Ripple\API.RippleEffects.pas',
+  API.RippleHeader in 'API\Ripple\API.RippleHeader.pas',
   Main.View in 'Main.View.pas' {MainView},
-  API.Logger in 'API\Timer\API.Logger.pas',
-  API.ThreadTimer in 'API\Timer\API.ThreadTimer.pas',
-  API.Controls.Hack in 'API\Timer\API.Controls.Hack.pas';
+  Lyt.Ripple in 'VIEW\Layouts\Main\Lyt.Ripple.pas' {LytRipple},
+  Layout.Dimmer in 'VIEW\Layouts\Dimmer\Layout.Dimmer.pas' {LytDimmer};
 
 {$R *.res}
 
