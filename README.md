@@ -3,7 +3,7 @@
 
  # The Count of Monte Cristo (RELOADED)
 
- ![](Res/Cristo.jpg)
+ ![](Res/CristoBG.bmp)
 
  ![](https://github.com/mben-dz/MyGifs/blob/main/WaterRipple.gif)
  
